@@ -1,14 +1,16 @@
-import os
-
 from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from config import Config
 
 app = Flask(__name__, instance_relative_config=True)
+app.config.from_object(Config)
 
-@app.route('/ip')
-def ip():
-  ip_address = request.remote_addr
-  return ip_address
+db = SQLAlchemy()
+db.init_app(app)
 
-@app.route('/healthcheck')
-def healthcheck():
-  return "OK"
+from app import models
+with app.app_context():
+    db.create_all()
+
+from app import routes
