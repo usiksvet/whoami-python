@@ -35,7 +35,7 @@ def index():
             folium.Marker(location=[visitor.latitude, visitor.longitude]).add_to(map)
     map_html = map._repr_html_()
 
-    return render_template('index.html', map_html=map_html, visitors=visitors)
+    return render_template('index.html', ip=remote_addr, map_html=map_html, visitors=visitors)
 
 
 @app.route('/ip')

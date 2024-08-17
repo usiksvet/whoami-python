@@ -5,22 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visitor Map</title>
     <style>
-        /* Přidání jednoduchého stylu pro mapu */
+        /* Adding simple style for the map */
         #map {
             height: 600px;
-            width: 100%;
+            max-width: 800px;
             margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <h1>Visitor Map</h1>
-    <!-- Místo, kde se vloží mapa -->
+    <!-- Place where the map will be inserted -->
     <div id="map">
         {{ map_html | safe }}
     </div>
-    <!-- Tabulka návštěvníků -->
+    <!-- Visitors table -->
     <h2>Visitor Data</h2>
+    Your IP: {{ip}}
     <table border="1" cellpadding="5" cellspacing="0">
         <thead>
             <tr>
