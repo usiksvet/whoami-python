@@ -1,8 +1,9 @@
 import folium
 
+import app.utils as utils
+
 from app import db
 from app.models import Visitor
-from app.utils import store_ip_address
 from flask import Blueprint, request, render_template
 from sqlalchemy import func, desc
 
@@ -11,9 +12,9 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    remote_addr = request.remote_addr
+    remote_addr = utils.get_ip()
 
-    if not store_ip_address(remote_addr):
+    if not utils.store_ip_address(remote_addr):
         return "Error retrieving location data", 500
 
     visitors = (
@@ -41,9 +42,9 @@ def index():
 
 @main.route('/ip')
 def ip():
-    remote_addr = request.remote_addr
+    remote_addr = utils.get_ip()
 
-    if not store_ip_address(remote_addr):
+    if not utils.store_ip_address(remote_addr):
         return "Error retrieving location data", 500
 
     return remote_addr

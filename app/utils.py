@@ -4,6 +4,12 @@ import requests
 
 from app import db
 from app.models import Visitor
+from flask import request
+
+
+def get_ip():
+    # This supports sitting behind a reverse proxy
+    return request.access_route[-1]
 
 
 def store_ip_address(addr):
