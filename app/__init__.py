@@ -2,14 +2,19 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
-app = Flask(__name__, instance_relative_config=True)
-app.config.from_object(Config)
-
 db = SQLAlchemy()
-db.init_app(app)
 
-from app import models
-with app.app_context():
-    db.create_all()
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-from app import routes
+    db.init_app(app)
+
+    from app.models import Visitor
+    with app.app_context():
+        db.create_all()
+
+    from app.routes import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
+    return app

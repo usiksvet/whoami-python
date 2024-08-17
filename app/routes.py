@@ -1,13 +1,15 @@
 import folium
 
-from app import app, db
+from app import db
 from app.models import Visitor
 from app.utils import store_ip_address
-from flask import request, render_template
+from flask import Blueprint, request, render_template
 from sqlalchemy import func, desc
 
+main = Blueprint('main', __name__)
 
-@app.route('/')
+
+@main.route('/')
 def index():
     remote_addr = request.remote_addr
 
@@ -30,13 +32,14 @@ def index():
     map = folium.Map(location=[0, 0], zoom_start=2)
     for visitor in visitors:
         if visitor.latitude and visitor.longitude:
-            folium.Marker(location=[visitor.latitude, visitor.longitude]).add_to(map)
+            folium.Marker(location=[visitor.latitude,
+                          visitor.longitude]).add_to(map)
     map_html = map._repr_html_()
 
     return render_template('index.html', ip=remote_addr, map_html=map_html, visitors=visitors)
 
 
-@app.route('/ip')
+@main.route('/ip')
 def ip():
     remote_addr = request.remote_addr
 
@@ -46,7 +49,6 @@ def ip():
     return remote_addr
 
 
-@app.route('/healthcheck')
+@main.route('/healthcheck')
 def healthcheck():
     return "OK"
-
