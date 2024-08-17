@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Map</title>
+    <style>
+        /* Přidání jednoduchého stylu pro mapu */
+        #map {
+            height: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visitor Map</h1>
+    <!-- Místo, kde se vloží mapa -->
+    <div id="map">
+        {{ map_html | safe }}
+    </div>
+    <!-- Tabulka návštěvníků -->
+    <h2>Visitor Data</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>IP Address</th>
+                <th>Last Seen</th>
+                <th>Visit Count</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in visitors %}
+                <tr>
+                    <td>{{ v.ip_address }}</td>
+                    <td>{{ v.last_seen }}</td>
+                    <td>{{ v.count }}</td>
+                    <td>{{ v.longitude }}</td>
+                    <td>{{ v.latitude }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
