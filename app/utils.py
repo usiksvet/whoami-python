@@ -30,7 +30,7 @@ def store_ip_address(addr):
             timestamp=now,
             ip_address=addr,
             longitude=data['lon'],
-            latitude=data['lat']
+            latitude=data['lat'],
         )
 
     db.session.add(visitor)

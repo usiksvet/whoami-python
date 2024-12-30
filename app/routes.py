@@ -33,8 +33,12 @@ def index():
     map = folium.Map(location=[0, 0], zoom_start=2)
     for visitor in visitors:
         if visitor.latitude and visitor.longitude:
-            folium.Marker(location=[visitor.latitude,
-                          visitor.longitude]).add_to(map)
+            icon_color = 'green' if visitor.ip_address == remote_addr else 'blue'
+            folium.Marker(
+                location=[visitor.latitude, visitor.longitude],
+                icon=folium.Icon(color=icon_color),
+                popup=f"Visits: {visitor.count}",
+            ).add_to(map)
     map_html = map._repr_html_()
 
     return render_template('index.html', ip=remote_addr, map_html=map_html, visitors=visitors)
