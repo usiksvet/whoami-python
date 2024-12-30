@@ -25,5 +25,7 @@ gunicorn run:app
 
 ### Environment Variables
 
-- `DATABASE_URL`: PostgreSQL connection string in the format `postgresql://user:password@host:port/dbname`. See [SQLAlchemy Database URLs](https://docs.sqlalchemy.org/en/14/core/engines.html#database-urls) for more details.
-- `WEB_CONCURRENCY`: (production use) Number of worker processes for handling requests. See [Gunicorn Worker Configuration](https://docs.gunicorn.org/en/stable/settings.html#worker-processes) for more details.
+| Name | Description | Default | Documentation |
+|------|-------------|---------|----------------|
+| `DATABASE_URL` | PostgreSQL connection string in the format `postgresql://user:password@host:port/dbname` | `sqlite:///:memory:` | [SQLAlchemy Database URLs](https://docs.sqlalchemy.org/en/14/core/engines.html#database-urls) |
+| `WEB_CONCURRENCY` | Number of worker processes for handling requests (production use) | `1` (can be set by PaaS like Heroku) | [Gunicorn Worker Configuration](https://docs.gunicorn.org/en/stable/settings.html#worker-processes) |
